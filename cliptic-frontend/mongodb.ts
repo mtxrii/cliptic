@@ -1,4 +1,4 @@
-import { Db, MongoClient } from "mongodb";
+import { Db, MongoClient, MongoClientOptions } from "mongodb";
 import formatLog from "./utils";
  
 // Create cached connection variable
@@ -12,10 +12,7 @@ export default async function connectToDatabase(): Promise<Db> {
     return cachedDB;
   }
 
-  const opts = {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  };
+  const opts: MongoClientOptions = {};
   console.info(formatLog("No client found! Creating a new one."));
   // If no connection is cached, create a new one
   const client = new MongoClient(process.env.ATLAS_URI_PROD as string, opts);
