@@ -8,13 +8,22 @@ export default async function CreateLink(
   response: NextApiResponse
 ) {
   const apiKey = request.headers["api-key"] as string;
-  if (request.method !== "POST" || apiKey !== process.env.API_KEY) {
+  if (request.method !== "POST") {
     return response.status(405).json({
       type: "Error",
       code: 405,
       message: "Only POST method is accepted on this route",
     });
   }
+
+  if (apiKey !== null && apiKey !== process.env.API_KEY) {
+    return response.status(405).json({
+      type: "Error",
+      code: 401,
+      message: "API key was not recognized",
+    });
+  }
+
   const { link } = request.body;
  
   if (!link) {
