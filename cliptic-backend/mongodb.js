@@ -1,3 +1,4 @@
+// read sample from: https://www.mongodb.com/docs/drivers/node/current/quick-start/connect-to-mongodb/
 const { MongoClient } = require("mongodb");
 // Replace the uri string with your connection string.
 const uri = "<connection string uri>";
@@ -16,3 +17,14 @@ async function run() {
   }
 }
 run().catch(console.dir);
+
+
+// write sample from: https://www.mongodb.com/docs/drivers/node/current/fundamentals/crud/write-operations/insert/
+const myDB = client.db("myDB");
+const myColl = myDB.collection("pizzaMenu");
+
+const doc = { name: "Neapolitan pizza", shape: "round" };
+const result = await myColl.insertOne(doc);
+console.log(
+   `A document was inserted with the _id: ${result.insertedId}`,
+);
