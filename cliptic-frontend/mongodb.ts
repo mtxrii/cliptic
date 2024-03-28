@@ -1,5 +1,5 @@
 import { Db, MongoClient, MongoClientOptions } from "mongodb";
-import formatLog from "./utils";
+import { formatLog } from "./utils";
  
 // Create cached connection variable
 let cachedDB: Db | null = null;

@@ -2,7 +2,7 @@ import { customAlphabet } from "nanoid";
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-export default function formatLog(logStr) {
+export function formatLog(logStr) {
     let date = new Date().toISOString();
     date = date.replaceAll('-', '/')
                .replace('T', ' ')
@@ -10,6 +10,6 @@ export default function formatLog(logStr) {
     return '[' + date + '] ' + logStr;
 }
 
-export default function getRandomHash(length) {
+export function getRandomHash(length) {
     return customAlphabet(characters, length);
 }

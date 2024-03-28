@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import connectToDatabase from "../../mongodb";
 import { COLLECTION_NAMES } from "../../types";
-import getRandomHash from "../../utils";
+import { getRandomHash } from "../../utils";
  
 export default async function CreateLink(
   request: NextApiRequest,
