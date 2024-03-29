@@ -35,3 +35,14 @@ const saveLink = async (db, url) => {
   const doc = { url: url, id: "placeholder uuid"};
   const result = await linkCollection.insertOne(doc);
 }
+
+const getLink = async (db, id) => {
+  try {
+    const linkCollection = db.collection("link");
+
+    const query = { id: id };
+    const link = await linkCollection.findOne(query);
+  } finally {
+    await client.close();
+  }
+}
