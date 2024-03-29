@@ -1,0 +1,7 @@
+{
+  "uri": {
+    "dev": "mongodb://localhost:27017/",
+    "prod": "..temp.."
+  },
+  "collection": "link"
+}

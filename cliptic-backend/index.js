@@ -1,6 +1,7 @@
 const express = require('express');
 const { MongoClient } = require("mongodb");
 const { listLinks } = require("./mongodb");
+const mongoDbConfig = require('./config/mongodb.json');
 
 const app = express();
 const port = 3000;
@@ -14,9 +15,7 @@ app.listen(port, () => {
 })
 
 app.get('/mongodb', async (req, res) => {
-  const uri = 'mongodb://localhost:27017/'
-
-  const client = new MongoClient(uri);
+  const client = new MongoClient(mongoDbConfig.uri.dev);
   const db = client.db('cliptic');
 
   await listLinks(db);
