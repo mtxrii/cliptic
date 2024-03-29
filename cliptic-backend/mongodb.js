@@ -28,3 +28,10 @@ const result = await myColl.insertOne(doc);
 console.log(
    `A document was inserted with the _id: ${result.insertedId}`,
 );
+
+const saveLink = async (db, url) => {
+  const linkCollection = db.collection("link");
+
+  const doc = { url: url, id: "placeholder uuid"};
+  const result = await linkCollection.insertOne(doc);
+}
