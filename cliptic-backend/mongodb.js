@@ -1,11 +1,11 @@
-export const saveLink = async (db, url) => {
+const saveLink = async (db, url) => {
   const linkCollection = db.collection("link");
 
   const doc = { url: url, id: "placeholder uuid"};
   const result = await linkCollection.insertOne(doc);
 }
 
-export const getLink = async (db, id) => {
+const getLink = async (db, id) => {
   try {
     const linkCollection = db.collection("link");
 
@@ -16,9 +16,15 @@ export const getLink = async (db, id) => {
   }
 }
 
-export const listLinks = async (db) => {
+const listLinks = async (db) => {
   const linkCollection = db.collection("link");
 
   const all = await db.collection("link").find({});
   console.log(all);
+}
+
+module.exports = {
+  saveLink,
+  getLink,
+  listLinks
 }
