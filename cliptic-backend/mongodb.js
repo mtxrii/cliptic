@@ -7,7 +7,7 @@ async function run() {
   try {
     const database = client.db('sample_mflix');
     const movies = database.collection('movies');
-    // Query for a movie that has the title 'Back to the Future'
+    // Query for a movie that has the title 'Back to the Future'connect to mongodb
     const query = { title: 'Back to the Future' };
     const movie = await movies.findOne(query);
     console.log(movie);
@@ -29,14 +29,14 @@ console.log(
    `A document was inserted with the _id: ${result.insertedId}`,
 );
 
-const saveLink = async (db, url) => {
+export const saveLink = async (db, url) => {
   const linkCollection = db.collection("link");
 
   const doc = { url: url, id: "placeholder uuid"};
   const result = await linkCollection.insertOne(doc);
 }
 
-const getLink = async (db, id) => {
+export const getLink = async (db, id) => {
   try {
     const linkCollection = db.collection("link");
 
@@ -45,4 +45,11 @@ const getLink = async (db, id) => {
   } finally {
     await client.close();
   }
+}
+
+export const listLinks = async (db) => {
+  const linkCollection = db.collection("link");
+
+  const all = await db.collection("link").find({});
+  console.log(all);
 }
