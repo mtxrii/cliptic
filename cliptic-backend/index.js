@@ -18,12 +18,6 @@ app.get('/mongodb', async (req, res) => {
   const client = new MongoClient(mongoDbConfig.uri.dev);
   const db = client.db('cliptic');
 
-  // --- temp
-
-  await saveLink(db, 'sample');
-
-  // ---
-
   await listLinks(db);
   res.send('done');
 })
