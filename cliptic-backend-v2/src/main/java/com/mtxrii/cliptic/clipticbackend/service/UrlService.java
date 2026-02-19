@@ -1,0 +1,45 @@
+package com.mtxrii.cliptic.clipticbackend.service;
+
+import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
+import com.mtxrii.cliptic.clipticbackend.api.model.response.PostUrlResponse;
+import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
+import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
+import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+
+@Service
+public class UrlService {
+    private final LinkRepository linkRepository;
+
+    public UrlService(LinkRepository linkRepository) {
+        this.linkRepository = linkRepository;
+    }
+
+    public Response postUrl(PostUrlRequest requestBody) {
+        if (requestBody.getOriginalUrl() == null) {
+            return new Response(400);
+        }
+
+        String alias = requestBody.getAlias();
+        if (alias == null) {
+            alias = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            if (this.linkRepository.existsByAlias(alias)) {
+                alias = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            }
+        }
+
+        if (this.linkRepository.existsByAlias(alias)) {
+            return new Response(409);
+        }
+
+        LinkEntity linkEntity = new LinkEntity(
+                alias,
+                requestBody.getOriginalUrl(),
+                requestBody.getCreatedBy()
+        );
+        this.linkRepository.save(linkEntity);
+        return new PostUrlResponse(200, "https://sample.com/" + alias);
+    }
+}

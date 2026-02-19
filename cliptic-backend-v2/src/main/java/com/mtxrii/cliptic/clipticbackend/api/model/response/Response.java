@@ -9,4 +9,8 @@ public class Response {
     public Response(int code) {
         this.code = code;
     }
+
+    public int getStatusCode() {
+        return this.code;
+    }
 }
