@@ -10,6 +10,7 @@ public class Response {
         this.code = code;
     }
 
+    @JsonIgnore
     public int getStatusCode() {
         return this.code;
     }
