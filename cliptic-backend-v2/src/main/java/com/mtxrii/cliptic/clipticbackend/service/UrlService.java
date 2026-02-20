@@ -1,6 +1,7 @@
 package com.mtxrii.cliptic.clipticbackend.service;
 
 import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
+import com.mtxrii.cliptic.clipticbackend.api.model.response.ErrorResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.PostUrlResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
@@ -19,7 +20,7 @@ public class UrlService {
 
     public Response postUrl(PostUrlRequest requestBody) {
         if (requestBody.getOriginalUrl() == null) {
-            return new Response(400);
+            return new ErrorResponse(400, "Original URL cannot be empty");
         }
 
         String alias = requestBody.getAlias();
@@ -31,7 +32,7 @@ public class UrlService {
         }
 
         if (this.linkRepository.existsByAlias(alias)) {
-            return new Response(409);
+            return new ErrorResponse(409, "Alias already exists");
         }
 
         LinkEntity linkEntity = new LinkEntity(
