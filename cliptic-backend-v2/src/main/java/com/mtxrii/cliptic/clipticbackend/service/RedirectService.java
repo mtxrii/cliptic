@@ -1,6 +1,5 @@
 package com.mtxrii.cliptic.clipticbackend.service;
 
-import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +15,6 @@ public class RedirectService {
         if (this.linkRepository.findByAlias(alias).isEmpty()) {
             return null;
         }
-        return ClipticConst.REDIRECT_BASE_URL + this.linkRepository.findByAlias(alias).get().getAlias();
+        return this.linkRepository.findByAlias(alias).get().getOriginalUrl();
     }
 }
