@@ -30,11 +30,13 @@ public class UrlService {
         }
 
         String alias = requestBody.getAlias();
+        boolean customAlias = true;
         if (alias == null) {
             alias = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
             if (this.linkRepository.existsByAlias(alias)) {
                 alias = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
             }
+            customAlias = false;
         }
 
         if (this.linkRepository.existsByAlias(alias)) {
@@ -48,7 +50,10 @@ public class UrlService {
         );
         this.linkRepository.save(linkEntity);
         RedirectService.addToCache(alias, requestBody.getOriginalUrl());
-        log.info("Created new link: {} -> {}", alias, requestBody.getOriginalUrl());
+
+        String aliasDetail = customAlias ? " (custom alias)" : "";
+        log.info("Created new link: {}{} -> {}", alias, aliasDetail, requestBody.getOriginalUrl());
+
         return new PostUrlResponse(200, ClipticConst.REDIRECT_BASE_URL + alias);
     }
 
