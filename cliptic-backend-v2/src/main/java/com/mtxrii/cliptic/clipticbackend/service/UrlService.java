@@ -8,12 +8,14 @@ import com.mtxrii.cliptic.clipticbackend.api.model.response.PostUrlResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
 import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UrlService {
     private final LinkRepository linkRepository;
@@ -46,6 +48,7 @@ public class UrlService {
         );
         this.linkRepository.save(linkEntity);
         RedirectService.addToCache(alias, requestBody.getOriginalUrl());
+        log.info("Created new link: {} -> {}", alias, requestBody.getOriginalUrl());
         return new PostUrlResponse(200, ClipticConst.REDIRECT_BASE_URL + alias);
     }
 
@@ -67,6 +70,7 @@ public class UrlService {
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);
         }
+        log.info("Deleted link: {} -> {}", alias, linkEntity.get().getOriginalUrl());
         this.linkRepository.delete(linkEntity.get());
         return new Response(204);
     }
