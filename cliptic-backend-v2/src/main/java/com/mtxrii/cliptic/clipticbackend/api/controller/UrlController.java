@@ -1,5 +1,6 @@
 package com.mtxrii.cliptic.clipticbackend.api.controller;
 
+import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
@@ -18,7 +19,7 @@ public class UrlController {
         this.urlService = urlService;
     }
 
-    @PostMapping("/url")
+    @PostMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> postUrl(
             @RequestBody PostUrlRequest requestBody
     ) {
@@ -26,7 +27,7 @@ public class UrlController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @GetMapping("/url")
+    @GetMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> getUrl(
             @RequestParam(name = "alias", required = false) String alias
     ) {
