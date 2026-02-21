@@ -30,6 +30,7 @@ public class UrlController {
     public ResponseEntity<Response> getUrl(
             @RequestParam(name = "alias", required = false) String alias
     ) {
-        return ResponseEntity.ok(new Response(200));
+        Response response = this.urlService.getUrl(alias);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

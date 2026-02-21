@@ -2,12 +2,14 @@ package com.mtxrii.cliptic.clipticbackend.service;
 
 import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.ErrorResponse;
+import com.mtxrii.cliptic.clipticbackend.api.model.response.GetUrlResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.PostUrlResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
 import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -42,5 +44,13 @@ public class UrlService {
         );
         this.linkRepository.save(linkEntity);
         return new PostUrlResponse(200, "https://sample.com/" + alias);
+    }
+
+    public Response getUrl(String alias) {
+        Optional<LinkEntity> linkEntity = this.linkRepository.findByAlias(alias);
+        if (linkEntity.isEmpty()) {
+            return new ErrorResponse(404, "No link found for alias: " + alias);
+        }
+        return new GetUrlResponse(linkEntity.get());
     }
 }
