@@ -4,8 +4,10 @@ import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,5 +24,12 @@ public class UrlController {
     ) {
         Response response = this.urlService.postUrl(requestBody);
         return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @GetMapping("/url")
+    public ResponseEntity<Response> getUrl(
+            @RequestParam(name = "alias", required = false) String alias
+    ) {
+        return ResponseEntity.ok(new Response(200));
     }
 }
