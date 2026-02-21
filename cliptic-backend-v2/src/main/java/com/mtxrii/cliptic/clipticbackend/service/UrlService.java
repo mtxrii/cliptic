@@ -67,5 +67,7 @@ public class UrlService {
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);
         }
+        this.linkRepository.delete(linkEntity.get());
+        return new Response(204);
     }
 }
