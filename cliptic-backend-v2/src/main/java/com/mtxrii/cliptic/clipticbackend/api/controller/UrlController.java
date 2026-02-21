@@ -5,6 +5,7 @@ import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,5 +34,12 @@ public class UrlController {
     ) {
         Response response = this.urlService.getUrl(alias);
         return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @DeleteMapping(ClipticConst.MAPPING_URL_CONTROLLER)
+    public ResponseEntity<Response> deleteUrl(
+            @RequestParam(name = "alias", required = true) String alias
+    ) {
+        return ResponseEntity.status(204).build();
     }
 }
