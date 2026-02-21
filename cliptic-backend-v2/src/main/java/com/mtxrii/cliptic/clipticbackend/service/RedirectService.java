@@ -29,4 +29,8 @@ public class RedirectService {
         REDIRECT_CACHE.put(alias, redirectUrl);
         return redirectUrl;
     }
+
+    public static void addToCache(String alias, String redirectUrl) {
+        REDIRECT_CACHE.put(alias, redirectUrl);
+    }
 }

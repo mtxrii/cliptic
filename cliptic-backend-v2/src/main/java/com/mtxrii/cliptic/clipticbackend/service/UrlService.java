@@ -45,6 +45,7 @@ public class UrlService {
                 requestBody.getCreatedBy()
         );
         this.linkRepository.save(linkEntity);
+        RedirectService.addToCache(alias, requestBody.getOriginalUrl());
         return new PostUrlResponse(200, ClipticConst.REDIRECT_BASE_URL + alias);
     }
 
