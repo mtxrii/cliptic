@@ -9,6 +9,7 @@ import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
 import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -47,6 +48,11 @@ public class UrlService {
     }
 
     public Response getUrl(String alias) {
+        if (alias == null) {
+            List<LinkEntity> linkEntities = this.linkRepository.findAll();
+            return new GetUrlResponse(linkEntities.toArray(new LinkEntity[0]));
+        }
+
         Optional<LinkEntity> linkEntity = this.linkRepository.findByAlias(alias);
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);
