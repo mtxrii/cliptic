@@ -1,10 +1,12 @@
 package com.mtxrii.cliptic.clipticbackend.api.model.response;
 
 import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class GetUrlResponse extends Response {
     private record UrlRecord(String alias, String originalUrl, String redirectUrl, String createdBy) { }
 
