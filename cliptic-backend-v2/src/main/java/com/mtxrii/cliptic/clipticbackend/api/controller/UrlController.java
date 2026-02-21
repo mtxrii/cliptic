@@ -40,6 +40,7 @@ public class UrlController {
     public ResponseEntity<Response> deleteUrl(
             @RequestParam(name = "alias", required = true) String alias
     ) {
-        return ResponseEntity.status(204).build();
+        Response response = this.urlService.deleteUrl(alias);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }
