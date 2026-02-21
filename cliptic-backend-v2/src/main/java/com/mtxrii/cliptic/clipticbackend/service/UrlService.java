@@ -1,5 +1,6 @@
 package com.mtxrii.cliptic.clipticbackend.service;
 
+import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.ErrorResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.GetUrlResponse;
@@ -44,7 +45,7 @@ public class UrlService {
                 requestBody.getCreatedBy()
         );
         this.linkRepository.save(linkEntity);
-        return new PostUrlResponse(200, "https://sample.com/" + alias);
+        return new PostUrlResponse(200, ClipticConst.REDIRECT_BASE_URL + alias);
     }
 
     public Response getUrl(String alias) {

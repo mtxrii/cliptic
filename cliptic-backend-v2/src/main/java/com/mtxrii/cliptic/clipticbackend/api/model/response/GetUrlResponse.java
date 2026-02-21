@@ -1,5 +1,6 @@
 package com.mtxrii.cliptic.clipticbackend.api.model.response;
 
+import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
 import lombok.Getter;
 
@@ -19,7 +20,7 @@ public class GetUrlResponse extends Response {
             this.urls.add(new UrlRecord(
                     link.getAlias(),
                     link.getOriginalUrl(),
-                    "https://sample.com/" + link.getAlias(),
+                    ClipticConst.REDIRECT_BASE_URL + link.getAlias(),
                     link.getCreatedBy()
             ));
         }
