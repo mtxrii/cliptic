@@ -9,6 +9,7 @@ import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
 import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
 import com.mtxrii.cliptic.clipticbackend.util.GenericUtil;
+import com.mtxrii.cliptic.clipticbackend.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,9 @@ public class UrlService {
         String alias = requestBody.getAlias();
         boolean customAlias = true;
         if (alias == null) {
-            alias = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+            alias = StringUtil.createRandomAlias(requestBody.getOriginalUrl());
             if (this.linkRepository.existsByAlias(alias)) {
-                alias = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+                alias = StringUtil.createRandomAlias(requestBody.getOriginalUrl());
             }
             customAlias = false;
         }

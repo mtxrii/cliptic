@@ -5,6 +5,10 @@ import java.util.UUID;
 public final class StringUtil {
     private StringUtil() { }
 
+    public static String createRandomAlias(String originalUrl) {
+        return hash4(originalUrl) + randomStringMax32(4);
+    }
+
     public static String randomString(int length) {
         if (length < 0) {
             return null;
