@@ -30,7 +30,7 @@ public final class StringUtil {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, length).toUpperCase();
     }
 
-    private static String randomStringMax32(int length) {
+    protected static String randomStringMax32(int length) {
         if (length > 32 || length < 0) {
             return null;
         }
