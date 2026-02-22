@@ -39,7 +39,9 @@ public final class StringUtil {
 
     // Source: https://chatgpt.com/share/699aedd7-1b68-800a-a1a3-f918b042d1e1
     public static String hash4(String input) {
-        if (input == null) return "0000";
+        if (input == null || input.isEmpty()) {
+            return "0000";
+        }
 
         // Limit input length to 255 chars
         if (input.length() > 255) {
