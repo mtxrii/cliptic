@@ -28,6 +28,9 @@ public class LinkEntity {
     @Column(length = 16, nullable = false, unique = true)
     private String alias;
 
+    @Column(name = "is_custom_alias", nullable = false)
+    private boolean isCustomAlias;
+
     @Column(name = "original_url", nullable = false)
     private String originalUrl;
 

@@ -1,0 +1,2 @@
+ALTER TABLE link
+    ADD COLUMN is_custom_alias BOOLEAN NOT NULL DEFAULT FALSE;
