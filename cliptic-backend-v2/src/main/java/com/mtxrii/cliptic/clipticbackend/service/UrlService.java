@@ -31,16 +31,17 @@ public class UrlService {
             return new ErrorResponse(400, "Original URL cannot be empty");
         }
 
+        String originalUrl = requestBody.getOriginalUrl();
         String alias = requestBody.getAlias();
         boolean customAlias = true;
         if (alias == null) {
-            alias = StringUtil.createRandomAlias(requestBody.getOriginalUrl());
+            alias = StringUtil.createRandomAlias(originalUrl);
             int retryAttempts = 0;
             while (this.linkRepository.existsByAlias(alias)) {
-                alias = StringUtil.createRandomAlias(requestBody.getOriginalUrl());
+                alias = StringUtil.createRandomAlias(originalUrl);
                 retryAttempts ++;
             }
-            log.info("Generated random alias {} for new link: {} ({} retries)", alias, requestBody.getOriginalUrl(), retryAttempts);
+            log.info("Generated random alias {} for new link: {} ({} retries)", alias, originalUrl, retryAttempts);
             customAlias = false;
         }
 
@@ -51,14 +52,14 @@ public class UrlService {
         LinkEntity linkEntity = new LinkEntity(
                 alias,
                 customAlias,
-                requestBody.getOriginalUrl(),
+                originalUrl,
                 requestBody.getCreatedBy()
         );
         this.linkRepository.save(linkEntity);
-        RedirectService.addToCache(alias, requestBody.getOriginalUrl());
+        RedirectService.addToCache(alias, originalUrl);
 
         String aliasDetail = customAlias ? " (custom alias)" : "";
-        log.info("Created new link: {}{} -> {}", alias, aliasDetail, requestBody.getOriginalUrl());
+        log.info("Created new link: {}{} -> {}", alias, aliasDetail, originalUrl);
 
         return new PostUrlResponse(200, ClipticConst.REDIRECT_BASE_URL + alias);
     }
