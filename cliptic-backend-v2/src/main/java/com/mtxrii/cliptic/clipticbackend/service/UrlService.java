@@ -35,9 +35,12 @@ public class UrlService {
         boolean customAlias = true;
         if (alias == null) {
             alias = StringUtil.createRandomAlias(requestBody.getOriginalUrl());
-            if (this.linkRepository.existsByAlias(alias)) {
+            int retryAttempts = 0;
+            while (this.linkRepository.existsByAlias(alias)) {
                 alias = StringUtil.createRandomAlias(requestBody.getOriginalUrl());
+                retryAttempts ++;
             }
+            log.info("Generated random alias {} for new link: {} ({} retries)", alias, requestBody.getOriginalUrl(), retryAttempts);
             customAlias = false;
         }
 
