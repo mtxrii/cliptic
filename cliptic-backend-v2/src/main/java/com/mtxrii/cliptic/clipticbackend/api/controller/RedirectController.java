@@ -1,5 +1,6 @@
 package com.mtxrii.cliptic.clipticbackend.api.controller;
 
+import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import com.mtxrii.cliptic.clipticbackend.service.RedirectService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class RedirectController {
         this.redirectService = redirectService;
     }
 
-    @GetMapping("/{alias}")
+    @GetMapping(ClipticConst.REDIRECT_URL_CONTROLLER)
     public ResponseEntity<Void> redirectToUrl(
             @PathVariable String alias
     ) {
