@@ -71,10 +71,13 @@ public class UrlService {
         return new GetUrlResponse(linkEntity.get());
     }
 
-    public Response deleteUrl(String alias) {
+    public Response deleteUrl(String alias, String createdBy) {
         Optional<LinkEntity> linkEntity = this.linkRepository.findByAlias(alias);
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);
+        }
+        if (linkEntity.get().getCreatedBy() != null && !linkEntity.get().getCreatedBy().equals(createdBy)) {
+            return new ErrorResponse(403, "You are not authorized to delete this link");
         }
         log.info("Deleted link: {} -> {}", alias, linkEntity.get().getOriginalUrl());
         this.linkRepository.delete(linkEntity.get());

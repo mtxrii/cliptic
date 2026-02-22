@@ -38,9 +38,10 @@ public class UrlController {
 
     @DeleteMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> deleteUrl(
-            @RequestParam(name = "alias", required = true) String alias
+            @RequestParam(name = "alias", required = true) String alias,
+            @RequestParam(name = "owner", required = true) String owner
     ) {
-        Response response = this.urlService.deleteUrl(alias);
+        Response response = this.urlService.deleteUrl(alias, owner);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }
