@@ -30,7 +30,7 @@ public class UrlController {
 
     @GetMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> getUrl(
-            @RequestParam(name = "alias", required = false) String alias
+            @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = false) String alias
     ) {
         Response response = this.urlService.getUrl(alias);
         return ResponseEntity.status(response.getStatusCode()).body(response);
@@ -38,8 +38,8 @@ public class UrlController {
 
     @DeleteMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> deleteUrl(
-            @RequestParam(name = "alias", required = true) String alias,
-            @RequestParam(name = "owner", required = true) String owner
+            @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = true) String alias,
+            @RequestParam(name = ClipticConst.OWNER_REQUEST_PARAM, required = true) String owner
     ) {
         Response response = this.urlService.deleteUrl(alias, owner);
         return ResponseEntity.status(response.getStatusCode()).body(response);
