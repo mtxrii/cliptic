@@ -8,6 +8,7 @@ import com.mtxrii.cliptic.clipticbackend.api.model.response.PostUrlResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
 import com.mtxrii.cliptic.clipticbackend.db.entity.LinkEntity;
+import com.mtxrii.cliptic.clipticbackend.util.GenericUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +77,7 @@ public class UrlService {
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);
         }
-        if (linkEntity.get().getCreatedBy() != null && !linkEntity.get().getCreatedBy().equals(createdBy)) {
+        if (GenericUtil.equals(linkEntity.get().getCreatedBy(), createdBy)) {
             return new ErrorResponse(403, "You are not authorized to delete this link");
         }
         log.info("Deleted link: {} -> {}", alias, linkEntity.get().getOriginalUrl());
