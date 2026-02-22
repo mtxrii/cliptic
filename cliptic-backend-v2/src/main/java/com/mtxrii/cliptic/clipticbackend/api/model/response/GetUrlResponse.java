@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 public class GetUrlResponse extends Response {
-    private record UrlRecord(String alias, String originalUrl, String redirectUrl, String createdBy) { }
+    private record UrlRecord(String alias, boolean isCustomAlias, String originalUrl, String redirectUrl, String createdBy) { }
 
     private final List<UrlRecord> urls;
 
@@ -19,6 +19,7 @@ public class GetUrlResponse extends Response {
         for (LinkEntity link : linkEntities) {
             this.urls.add(new UrlRecord(
                     link.getAlias(),
+                    link.isCustomAlias(),
                     link.getOriginalUrl(),
                     ClipticConst.REDIRECT_BASE_URL + link.getAlias(),
                     link.getCreatedBy()

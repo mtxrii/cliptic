@@ -40,8 +40,9 @@ public class LinkEntity {
     @Column(name = "created_by")
     private String createdBy;
 
-    public LinkEntity(String alias, String originalUrl, String createdBy) {
+    public LinkEntity(String alias, boolean isCustomAlias, String originalUrl, String createdBy) {
         this.alias = alias;
+        this.isCustomAlias = isCustomAlias;
         this.originalUrl = originalUrl;
         this.createdBy = createdBy;
         this.createdTime = Instant.now();

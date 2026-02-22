@@ -45,6 +45,7 @@ public class UrlService {
 
         LinkEntity linkEntity = new LinkEntity(
                 alias,
+                customAlias,
                 requestBody.getOriginalUrl(),
                 requestBody.getCreatedBy()
         );
