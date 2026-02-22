@@ -18,12 +18,16 @@ public final class StringUtil {
         int extra = length % 32;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < times; i++) {
-            String str = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 32).toUpperCase();
+            String str = randomStringAlg(32);
             sb.append(str);
         }
-        String extraStr = UUID.randomUUID().toString().replaceAll("-", "").substring(0, extra).toUpperCase();
+        String extraStr = randomStringAlg(extra);
         sb.append(extraStr);
         return sb.toString();
+    }
+
+    private static String randomStringAlg(int length) {
+        return UUID.randomUUID().toString().replaceAll("-", "").substring(0, length).toUpperCase();
     }
 
     private static String randomStringMax32(int length) {
