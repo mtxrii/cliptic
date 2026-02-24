@@ -12,4 +12,5 @@ public final class ClipticConst {
     public static final String OWNER_REQUEST_PARAM = "owner";
 
     public static final int CREATE_RANDOM_ALIAS_MAX_RETRIES = 10;
+    public static final int CREATE_RANDOM_ALIAS_LENGTH_PADDING = 4;
 }

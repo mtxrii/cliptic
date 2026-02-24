@@ -1,12 +1,14 @@
 package com.mtxrii.cliptic.clipticbackend.util;
 
+import com.mtxrii.cliptic.clipticbackend.ClipticConst;
+
 import java.util.UUID;
 
 public final class StringUtil {
     private StringUtil() { }
 
     public static String createRandomAlias(String originalUrl) {
-        return hash4(originalUrl) + randomStringMax32(4);
+        return hash4(originalUrl) + randomStringMax32(ClipticConst.CREATE_RANDOM_ALIAS_LENGTH_PADDING);
     }
 
     public static String randomString(int length) {
