@@ -84,7 +84,7 @@ public class UrlService {
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);
         }
-        if (GenericUtil.equals(linkEntity.get().getCreatedBy(), createdBy)) {
+        if (linkEntity.get().getCreatedBy() != null && GenericUtil.equals(linkEntity.get().getCreatedBy(), createdBy)) {
             return new ErrorResponse(403, "You are not authorized to delete this link");
         }
         log.info("Deleted link: {} -> {}", alias, linkEntity.get().getOriginalUrl());
