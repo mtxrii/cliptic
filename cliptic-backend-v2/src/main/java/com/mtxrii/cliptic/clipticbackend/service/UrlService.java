@@ -60,7 +60,7 @@ public class UrlService {
         this.linkRepository.save(linkEntity);
         RedirectService.addToCache(alias, originalUrl);
 
-        String aliasDetail = customAlias ? " (custom alias)" : "";
+        String aliasDetail = customAlias ? " (custom alias)" : ClipticConst.EMPTY_STRING;
         log.info("Created new link: {}{} -> {}", alias, aliasDetail, originalUrl);
 
         return new PostUrlResponse(200, ClipticConst.REDIRECT_BASE_URL + alias);
