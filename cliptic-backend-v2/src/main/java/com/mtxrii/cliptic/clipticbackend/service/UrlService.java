@@ -33,10 +33,14 @@ public class UrlService {
         String originalUrl = requestBody.getOriginalUrl();
         String alias = requestBody.getAlias();
         boolean customAlias = true;
+        int maxRetries = 10;
         if (alias == null) {
             alias = StringUtil.createRandomAlias(originalUrl);
             int retryAttempts = 0;
             while (this.linkRepository.existsByAlias(alias)) {
+                if (retryAttempts >= maxRetries) {
+                    return new ErrorResponse(500, "Failed to generate unique alias");
+                }
                 alias = StringUtil.createRandomAlias(originalUrl);
                 retryAttempts ++;
             }
