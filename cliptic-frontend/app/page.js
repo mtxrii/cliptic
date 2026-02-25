@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const API_URL = process.env.NEXT_PUBLIC_SHORTENER_API_URL || "/api/create-link";
+const API_URL = "/api/create-link";
 
 function isValidUrl(value) {
   try {
