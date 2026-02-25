@@ -26,6 +26,7 @@ dependencies {
     implementation("org.projectlombok:lombok")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
+    implementation("io.github.cdimascio:java-dotenv:5.2.2")
 
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")

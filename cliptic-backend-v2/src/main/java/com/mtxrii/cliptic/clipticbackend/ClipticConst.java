@@ -17,6 +17,8 @@ public final class ClipticConst {
     public static final String BEARER_AUTH_HEADER_PREFIX = "Bearer ";
     public static final String NONE_AUTH_HEADER = "None";
 
+    public static final String BEARER_TOKEN_ENV_VAR_KEY = "BEARER_TOKEN";
+
     public static final int CREATE_RANDOM_ALIAS_MAX_RETRIES = 10;
     public static final int CREATE_RANDOM_ALIAS_LENGTH_PADDING = 4;
 }

@@ -5,6 +5,8 @@ import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.ErrorResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
+import com.mtxrii.cliptic.clipticbackend.util.GenericUtil;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,11 @@ import java.util.concurrent.Callable;
 @RestController
 public class UrlController {
     private final UrlService urlService;
+    private final Dotenv dotenv;
 
     public UrlController(UrlService urlService) {
         this.urlService = urlService;
+        this.dotenv = Dotenv.load();
     }
 
     @PostMapping(ClipticConst.MAPPING_URL_CONTROLLER)
@@ -67,7 +71,8 @@ public class UrlController {
         }
 
         String token = authHeader.substring(ClipticConst.BEARER_AUTH_HEADER_PREFIX.length());
-        if (!token.equals("your-secret-token")) {
+        String expected = this.dotenv.get(ClipticConst.BEARER_TOKEN_ENV_VAR_KEY);
+        if (!GenericUtil.equals(token, expected)) {
             return new ErrorResponse(401, "Access denied. Invalid token");
         }
 
