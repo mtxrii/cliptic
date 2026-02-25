@@ -35,8 +35,6 @@ export default async function CreateLink(
   }
 
   const authorizationHeader = buildAuthorizationHeader();
-  const authDebug = `auth_set=${authorizationHeader ? "yes" : "no"},auth_prefix=${authorizationHeader.split(" ")[0] || "none"},auth_len=${authorizationHeader.length}`;
-
   if (!authorizationHeader) {
     return response.status(500).json({
       type: "Error",
@@ -95,7 +93,7 @@ export default async function CreateLink(
       return response.status(backendResponse.status).json({
         type: "Error",
         code: backendResponse.status,
-        message: `Backend ${backendResponse.status}: ${backendMessage}.${redirectNote} (${authDebug})`,
+        message: `Backend ${backendResponse.status}: ${backendMessage}.${redirectNote}`,
       });
     }
 
