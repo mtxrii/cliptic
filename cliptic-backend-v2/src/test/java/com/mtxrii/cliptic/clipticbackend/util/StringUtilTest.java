@@ -1,11 +1,13 @@
 package com.mtxrii.cliptic.clipticbackend.util;
 
+import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -80,6 +82,17 @@ public class StringUtilTest {
             inputs.add(StringUtil.createRandomAlias(StringUtil.randomString(8)));
         }
         assertEquals(TEST_RUNS, inputs.size());
+    }
+
+    @Test
+    public void testCreateRandomAlias_sameSize() {
+        final int expectedLength = 4 + ClipticConst.CREATE_RANDOM_ALIAS_LENGTH_PADDING;
+        Random rng = new Random();
+        for (int i = 0; i < TEST_RUNS; i++) {
+            String sampleOfRandomLength = StringUtil.randomString(rng.nextInt(33));
+            String alias = StringUtil.createRandomAlias(sampleOfRandomLength);
+            assertEquals(expectedLength, alias.length());
+        }
     }
 
     @Nested
