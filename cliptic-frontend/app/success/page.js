@@ -28,11 +28,10 @@ function SuccessPageContent() {
   return (
     <main className="page-wrap">
       <section className="form-shell success-shell">
-        <p className="eyebrow">Success</p>
+        <p className="eyebrow">Cliptic</p>
         <h1>Your shortened URL is ready</h1>
         <p className="subtitle">
-          Share it anywhere. You can always create another one from the home
-          page.
+          Share it anywhere. Or create another one from the home page.
         </p>
 
         <div className="result-panel">
