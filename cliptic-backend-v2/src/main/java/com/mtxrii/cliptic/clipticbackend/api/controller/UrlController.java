@@ -35,14 +35,9 @@ public class UrlController {
 
     @PostMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> postUrl(
-            HttpServletRequest httpRequest,
             @RequestHeader(name = ClipticConst.AUTHORIZATION_HEADER, defaultValue = ClipticConst.NONE_AUTH_HEADER) String authHeader,
             @RequestBody PostUrlRequest requestBody
     ) {
-        Collections.list(httpRequest.getHeaderNames())
-                   .forEach(name -> log.info("Header: {} = {}", name, httpRequest.getHeader(name)));
-        log.info("Resolved authHeader param: '{}'", authHeader);
-
         Response response = this.runIfAuthenticated(
                 HttpMethod.POST,
                 authHeader,
