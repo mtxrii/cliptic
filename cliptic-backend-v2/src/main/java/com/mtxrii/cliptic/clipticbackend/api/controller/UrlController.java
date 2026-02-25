@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +23,7 @@ public class UrlController {
 
     @PostMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> postUrl(
+            @RequestHeader("Authorization") String authHeader,
             @RequestBody PostUrlRequest requestBody
     ) {
         Response response = this.urlService.postUrl(requestBody);
@@ -30,6 +32,7 @@ public class UrlController {
 
     @GetMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> getUrl(
+            @RequestHeader("Authorization") String authHeader,
             @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = false) String alias
     ) {
         Response response = this.urlService.getUrl(alias);
@@ -38,6 +41,7 @@ public class UrlController {
 
     @DeleteMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> deleteUrl(
+            @RequestHeader("Authorization") String authHeader,
             @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = true) String alias,
             @RequestParam(name = ClipticConst.OWNER_REQUEST_PARAM, required = true) String owner
     ) {
