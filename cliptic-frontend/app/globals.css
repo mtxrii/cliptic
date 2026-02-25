@@ -106,17 +106,19 @@ button,
   cursor: pointer;
 }
 
-button {
+.shortener-form button {
   color: #fff;
-  background: var(--action);
-  transition: background 0.15s ease;
+  background-color: var(--action);
+  border: 1px solid color-mix(in srgb, var(--action) 82%, #001b54);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-button:hover {
-  background: var(--action-hover);
+.shortener-form button:hover {
+  background-color: var(--action-hover);
+  border-color: color-mix(in srgb, var(--action-hover) 85%, #001b54);
 }
 
-button:disabled {
+.shortener-form button:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
