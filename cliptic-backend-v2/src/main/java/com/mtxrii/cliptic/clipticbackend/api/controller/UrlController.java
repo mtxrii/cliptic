@@ -2,6 +2,7 @@ package com.mtxrii.cliptic.clipticbackend.api.controller;
 
 import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import com.mtxrii.cliptic.clipticbackend.api.model.request.PostUrlRequest;
+import com.mtxrii.cliptic.clipticbackend.api.model.response.ErrorResponse;
 import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,9 @@ public class UrlController {
             @RequestHeader("Authorization") String authHeader,
             @RequestBody PostUrlRequest requestBody
     ) {
+        if (!isValidToken(authHeader)) {
+            return getUnauthorizedResponse();
+        }
         Response response = this.urlService.postUrl(requestBody);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
@@ -35,6 +39,9 @@ public class UrlController {
             @RequestHeader("Authorization") String authHeader,
             @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = false) String alias
     ) {
+        if (!isValidToken(authHeader)) {
+            return getUnauthorizedResponse();
+        }
         Response response = this.urlService.getUrl(alias);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
@@ -45,7 +52,21 @@ public class UrlController {
             @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = true) String alias,
             @RequestParam(name = ClipticConst.OWNER_REQUEST_PARAM, required = true) String owner
     ) {
+        if (!isValidToken(authHeader)) {
+            return getUnauthorizedResponse();
+        }
         Response response = this.urlService.deleteUrl(alias, owner);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    private boolean isValidToken(String authHeader) {
+        return authHeader != null
+                && authHeader.startsWith("Bearer ")
+                && authHeader.substring(7).equals("your-secret-token");
+    }
+
+    private ResponseEntity<Response> getUnauthorizedResponse() {
+        Response response = new ErrorResponse(401, "Unauthorized");
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }
