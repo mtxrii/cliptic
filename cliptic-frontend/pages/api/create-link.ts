@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import connectToDatabase from "../../mongodb";
-import { COLLECTION_NAMES } from "../../types";
-import { getRandomHash } from "../../utils";
- 
+
+const BACKEND_CREATE_URL =
+  process.env.SHORTENER_BACKEND_CREATE_URL || "http://localhost:8080/url";
+const BACKEND_AUTH_TOKEN = process.env.SHORTENER_BACKEND_TOKEN;
+
 export default async function CreateLink(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  const apiKey = request.headers["api-key"] as string;
   if (request.method !== "POST") {
     return response.status(405).json({
       type: "Error",
@@ -16,52 +16,81 @@ export default async function CreateLink(
     });
   }
 
-  if (apiKey !== null && apiKey !== process.env.API_KEY) {
-    return response.status(405).json({
+  if (!BACKEND_AUTH_TOKEN) {
+    return response.status(500).json({
       type: "Error",
-      code: 401,
-      message: "API key was not recognized",
+      code: 500,
+      message: "Missing SHORTENER_BACKEND_TOKEN in environment variables.",
     });
   }
 
-  const { link } = request.body;
- 
-  if (!link) {
-    response.status(400).send({
+  const { originalUrl, alias, link } = request.body ?? {};
+  const normalizedOriginalUrl = (originalUrl || link || "").trim();
+  const normalizedAlias = (alias || "").trim();
+
+  if (!normalizedOriginalUrl) {
+    response.status(400).json({
       type: "Error",
       code: 400,
-      message: "Expected {link: string}",
+      message: "Expected { originalUrl: string, alias?: string }",
     });
     return;
   }
+
   try {
-    const database = await connectToDatabase();
-    const urlInfoCollection = database.collection(COLLECTION_NAMES["url-info"]);
-    const hash = getRandomHash(4);
-    const linkExists = await urlInfoCollection.findOne({
-      link,
+    const backendResponse = await fetch(BACKEND_CREATE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${BACKEND_AUTH_TOKEN}`,
+      },
+      body: JSON.stringify({
+        originalUrl: normalizedOriginalUrl,
+        alias: normalizedAlias || undefined,
+      }),
     });
-    const shortUrl = `${process.env.HOST}/${hash}`;
-    if (!linkExists) {
-      await urlInfoCollection.insertOne({
-        link,
-        uid: hash,
-        shortUrl: shortUrl,
-        createdAt: new Date(),
+
+    const backendPayload = await backendResponse
+      .json()
+      .catch(() => ({} as Record<string, unknown>));
+    const normalizedPayload = backendPayload as Record<string, any>;
+
+    if (!backendResponse.ok) {
+      return response.status(backendResponse.status).json({
+        type: "Error",
+        code: backendResponse.status,
+        message:
+          normalizedPayload?.message ||
+          "Backend request failed while creating shortened URL.",
       });
     }
-    response.status(201);
-    response.send({
+
+    const shortUrl =
+      normalizedPayload?.data?.shortUrl ||
+      normalizedPayload?.shortUrl ||
+      normalizedPayload?.data?.shortenedUrl ||
+      normalizedPayload?.shortenedUrl ||
+      normalizedPayload?.data?.url ||
+      normalizedPayload?.url;
+
+    if (!shortUrl) {
+      return response.status(502).json({
+        type: "Error",
+        code: 502,
+        message: "Backend did not return a short URL.",
+      });
+    }
+
+    return response.status(201).json({
       type: "success",
       code: 201,
       data: {
-        shortUrl: linkExists?.shortUrl || shortUrl,
-        link,
+        shortUrl,
+        originalUrl: normalizedOriginalUrl,
       },
     });
   } catch (e: any) {
-    response.status(500);
-    response.send({
+    return response.status(500).json({
       code: 500,
       type: "error",
       message: e.message,

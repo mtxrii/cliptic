@@ -47,7 +47,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          link: trimmedUrl,
+          originalUrl: trimmedUrl,
           alias: trimmedAlias || undefined,
         }),
       });
