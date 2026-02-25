@@ -69,12 +69,14 @@ public class UrlController {
 
     private Response runIfAuthenticated(String authHeader, Callable<Response> callable) {
         if (authHeader == null || !authHeader.startsWith(ClipticConst.BEARER_AUTH_HEADER_PREFIX)) {
+            log.info("Error on {}: Missing Bearer token", ClipticConst.MAPPING_URL_CONTROLLER);
             return new ErrorResponse(401, "Unauthenticated. Missing or invalid token");
         }
 
         String token = authHeader.substring(ClipticConst.BEARER_AUTH_HEADER_PREFIX.length());
         String expected = this.dotenv.get(ClipticConst.BEARER_TOKEN_ENV_VAR_KEY);
         if (!GenericUtil.equals(token, expected)) {
+            log.info("Error on {}: Invalid Bearer token", ClipticConst.MAPPING_URL_CONTROLLER);
             return new ErrorResponse(401, "Access denied. Invalid token");
         }
 
