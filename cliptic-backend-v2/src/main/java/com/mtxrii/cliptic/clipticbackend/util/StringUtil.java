@@ -29,7 +29,11 @@ public final class StringUtil {
     }
 
     private static String randomStringAlg(int length) {
-        return UUID.randomUUID().toString().replaceAll("-", ClipticConst.EMPTY_STRING).substring(0, length).toUpperCase();
+        return UUID.randomUUID()
+                   .toString()
+                   .replaceAll("-", ClipticConst.EMPTY_STRING)
+                   .substring(0, length)
+                   .toUpperCase();
     }
 
     protected static String randomStringMax32(int length) {
