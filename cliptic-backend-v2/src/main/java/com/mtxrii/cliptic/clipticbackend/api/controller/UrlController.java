@@ -7,6 +7,7 @@ import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
 import com.mtxrii.cliptic.clipticbackend.util.GenericUtil;
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.Callable;
 
+@Slf4j
 @RestController
 public class UrlController {
     private final UrlService urlService;
@@ -79,6 +81,7 @@ public class UrlController {
         try {
             return callable.call();
         } catch (Exception e) {
+            log.error("Error occurred while processing request", e);
             return new ErrorResponse(500, "Internal server error");
         }
     }
