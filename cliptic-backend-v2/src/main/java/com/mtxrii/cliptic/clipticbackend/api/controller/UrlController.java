@@ -26,7 +26,7 @@ public class UrlController {
 
     @PostMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> postUrl(
-            @RequestHeader("Authorization") String authHeader,
+            @RequestHeader(name = ClipticConst.AUTHORIZATION_HEADER, defaultValue = ClipticConst.NONE_AUTH_HEADER) String authHeader,
             @RequestBody PostUrlRequest requestBody
     ) {
         Response response = this.runIfAuthenticated(
@@ -38,7 +38,7 @@ public class UrlController {
 
     @GetMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> getUrl(
-            @RequestHeader("Authorization") String authHeader,
+            @RequestHeader(name = ClipticConst.AUTHORIZATION_HEADER, defaultValue = ClipticConst.NONE_AUTH_HEADER) String authHeader,
             @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = false) String alias
     ) {
         Response response = this.runIfAuthenticated(
@@ -50,9 +50,9 @@ public class UrlController {
 
     @DeleteMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> deleteUrl(
-            @RequestHeader("Authorization") String authHeader,
+            @RequestHeader(name = ClipticConst.AUTHORIZATION_HEADER, defaultValue = ClipticConst.NONE_AUTH_HEADER) String authHeader,
             @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = true) String alias,
-            @RequestParam(name = ClipticConst.OWNER_REQUEST_PARAM, required = true) String owner
+            @RequestParam(name = ClipticConst.OWNER_REQUEST_PARAM, defaultValue = ClipticConst.NONE_AUTH_HEADER) String owner
     ) {
         Response response = this.runIfAuthenticated(
                 authHeader,
