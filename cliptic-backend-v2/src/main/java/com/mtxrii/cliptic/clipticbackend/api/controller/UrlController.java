@@ -7,6 +7,7 @@ import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
 import com.mtxrii.cliptic.clipticbackend.util.GenericUtil;
 import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.concurrent.Callable;
 
 @Slf4j
@@ -33,9 +35,14 @@ public class UrlController {
 
     @PostMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> postUrl(
+            HttpServletRequest httpRequest,
             @RequestHeader(name = ClipticConst.AUTHORIZATION_HEADER, defaultValue = ClipticConst.NONE_AUTH_HEADER) String authHeader,
             @RequestBody PostUrlRequest requestBody
     ) {
+        Collections.list(httpRequest.getHeaderNames())
+                   .forEach(name -> log.info("Header: {} = {}", name, httpRequest.getHeader(name)));
+        log.info("Resolved authHeader param: '{}'", authHeader);
+
         Response response = this.runIfAuthenticated(
                 HttpMethod.POST,
                 authHeader,
