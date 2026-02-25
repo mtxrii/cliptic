@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 const BACKEND_CREATE_URL =
   process.env.SHORTENER_BACKEND_CREATE_URL || "http://localhost:8080/url";
 const BACKEND_AUTH_TOKEN = process.env.SHORTENER_BACKEND_TOKEN;
+const BACKEND_AUTH_HEADER = process.env.SHORTENER_BACKEND_AUTH_HEADER;
 
 export default async function CreateLink(
   request: NextApiRequest,
@@ -38,30 +39,42 @@ export default async function CreateLink(
   }
 
   try {
+    const authorizationHeader =
+      BACKEND_AUTH_HEADER || `Bearer ${BACKEND_AUTH_TOKEN}`;
+
     const backendResponse = await fetch(BACKEND_CREATE_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${BACKEND_AUTH_TOKEN}`,
+        Authorization: authorizationHeader,
       },
       body: JSON.stringify({
         originalUrl: normalizedOriginalUrl,
-        alias: normalizedAlias || undefined,
+        alias: normalizedAlias,
       }),
     });
 
-    const backendPayload = await backendResponse
-      .json()
-      .catch(() => ({} as Record<string, unknown>));
-    const normalizedPayload = backendPayload as Record<string, any>;
+    const rawBody = await backendResponse.text();
+    let normalizedPayload: Record<string, any> = {};
+
+    if (rawBody) {
+      try {
+        normalizedPayload = JSON.parse(rawBody) as Record<string, any>;
+      } catch {
+        normalizedPayload = {};
+      }
+    }
 
     if (!backendResponse.ok) {
+      const backendMessage =
+        normalizedPayload?.message ||
+        normalizedPayload?.error ||
+        rawBody ||
+        "Backend request failed while creating shortened URL.";
       return response.status(backendResponse.status).json({
         type: "Error",
         code: backendResponse.status,
-        message:
-          normalizedPayload?.message ||
-          "Backend request failed while creating shortened URL.",
+        message: `Backend ${backendResponse.status}: ${backendMessage}`,
       });
     }
 
