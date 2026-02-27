@@ -95,6 +95,14 @@ public class StringUtilTest {
         }
     }
 
+    @Test
+    public void testCreateRandomAlias_upperCase() {
+        for (int i = 0; i < TEST_RUNS; i++) {
+            String alias = StringUtil.createRandomAlias(StringUtil.randomString(8));
+            assertEquals(alias.toUpperCase(), alias);
+        }
+    }
+
     @Nested
     class RandomStringMax32Tests {
 

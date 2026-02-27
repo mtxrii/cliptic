@@ -18,6 +18,7 @@ public class RedirectService {
     }
 
     public Optional<String> redirect(String alias) {
+        alias = alias.toUpperCase();
         if (REDIRECT_CACHE.containsKey(alias)) {
             return Optional.of(REDIRECT_CACHE.get(alias));
         }

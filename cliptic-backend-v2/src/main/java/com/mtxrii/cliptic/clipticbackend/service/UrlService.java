@@ -47,18 +47,18 @@ public class UrlService {
             customAlias = false;
         }
 
-        if (this.linkRepository.existsByAlias(alias)) {
+        if (this.linkRepository.existsByAlias(alias.toUpperCase())) {
             return new ErrorResponse(409, "Alias already exists");
         }
 
         LinkEntity linkEntity = new LinkEntity(
-                alias,
+                alias.toUpperCase(),
                 customAlias,
                 originalUrl,
                 requestBody.getCreatedBy()
         );
         this.linkRepository.save(linkEntity);
-        RedirectService.addToCache(alias, originalUrl);
+        RedirectService.addToCache(alias.toUpperCase(), originalUrl);
 
         String aliasDetail = customAlias ? " (custom alias)" : ClipticConst.EMPTY_STRING;
         log.info("Created new link: {}{} -> {}", alias, aliasDetail, originalUrl);
@@ -72,6 +72,7 @@ public class UrlService {
             return new GetUrlResponse(linkEntities.toArray(new LinkEntity[0]));
         }
 
+        alias = alias.toUpperCase();
         Optional<LinkEntity> linkEntity = this.linkRepository.findByAlias(alias);
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);
@@ -80,6 +81,7 @@ public class UrlService {
     }
 
     public Response deleteUrl(String alias, String createdBy) {
+        alias = alias.toUpperCase();
         Optional<LinkEntity> linkEntity = this.linkRepository.findByAlias(alias);
         if (linkEntity.isEmpty()) {
             return new ErrorResponse(404, "No link found for alias: " + alias);

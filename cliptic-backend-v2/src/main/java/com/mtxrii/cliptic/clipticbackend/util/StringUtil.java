@@ -71,6 +71,7 @@ public final class StringUtil {
             base36 = base36.substring(0, 4);
         }
 
+        base36 = base36.toUpperCase();
         return base36;
     }
 }
