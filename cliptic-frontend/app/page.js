@@ -20,6 +20,12 @@ export default function Home() {
   const [customAlias, setCustomAlias] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [exampleAlias, setExampleAlias] = useState("");
+
+  const generateExampleAlias = () => {
+    const randomSuffix = Math.random().toString(36).substring(2, 8);
+    setExampleAlias(`my-link-${randomSuffix}`);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -102,7 +108,8 @@ export default function Home() {
           <input
             id="customAlias"
             type="text"
-            placeholder="my-campaign"
+            // placeholder="my-campaign"
+            placeholder={exampleAlias}
             value={customAlias}
             onChange={(event) => setCustomAlias(event.target.value)}
           />
