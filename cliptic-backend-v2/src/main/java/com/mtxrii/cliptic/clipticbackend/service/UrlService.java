@@ -33,7 +33,7 @@ public class UrlService {
         String originalUrl = requestBody.getOriginalUrl();
         String alias = requestBody.getAlias();
         boolean customAlias = true;
-        if (alias == null) {
+        if (alias == null || alias.isEmpty()) {
             alias = StringUtil.createRandomAlias(originalUrl);
             int retryAttempts = 0;
             while (this.linkRepository.existsByAlias(alias)) {
