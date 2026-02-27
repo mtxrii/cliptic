@@ -1,4 +1,5 @@
 import "./globals.css";
+import DayThemeCycle from "./day-theme-cycle";
 
 export const metadata = {
   title: "Cliptic | URL Shortener",
@@ -8,7 +9,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <DayThemeCycle />
+        {children}
+      </body>
     </html>
   );
 }
