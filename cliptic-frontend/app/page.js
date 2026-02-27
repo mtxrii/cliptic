@@ -23,6 +23,7 @@ export default function Home() {
   const router = useRouter();
   const [url, setUrl] = useState("");
   const [customAlias, setCustomAlias] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({ url: "" });
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [exampleAlias, setExampleAlias] = useState("");
@@ -39,17 +40,20 @@ export default function Home() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
+    setFieldErrors({ url: "" });
 
     const trimmedUrl = url.trim();
     const trimmedAlias = customAlias.trim();
 
     if (!trimmedUrl) {
-      setError("URL is required.");
+      setFieldErrors({ url: "Enter a destination URL." });
       return;
     }
 
     if (!isValidUrl(trimmedUrl)) {
-      setError("Please enter a valid URL including protocol (https://...).");
+      setFieldErrors({
+        url: "Enter a valid URL, including protocol (for example, https://...).",
+      });
       return;
     }
 
@@ -98,7 +102,7 @@ export default function Home() {
           shareable short link. No signup required
         </p>
 
-        <form onSubmit={handleSubmit} className="shortener-form">
+        <form onSubmit={handleSubmit} className="shortener-form" noValidate>
           <label htmlFor="url">Destination URL</label>
           <input
             id="url"
@@ -106,9 +110,18 @@ export default function Home() {
             inputMode="url"
             placeholder="https://example.com/a-very-long-link"
             value={url}
-            onChange={(event) => setUrl(event.target.value)}
+            onChange={(event) => {
+              setUrl(event.target.value);
+              if (fieldErrors.url) {
+                setFieldErrors({ url: "" });
+              }
+            }}
             required
+            aria-invalid={fieldErrors.url ? "true" : "false"}
           />
+          {fieldErrors.url ? (
+            <p className="field-hint field-hint--error">{fieldErrors.url}</p>
+          ) : null}
 
           <label htmlFor="customAlias">
             Custom alias{" "}
