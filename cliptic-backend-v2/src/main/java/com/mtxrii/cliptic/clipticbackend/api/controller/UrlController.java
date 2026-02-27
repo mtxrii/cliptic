@@ -7,7 +7,6 @@ import com.mtxrii.cliptic.clipticbackend.api.model.response.Response;
 import com.mtxrii.cliptic.clipticbackend.service.UrlService;
 import com.mtxrii.cliptic.clipticbackend.util.GenericUtil;
 import io.github.cdimascio.dotenv.Dotenv;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
 import java.util.concurrent.Callable;
 
 @Slf4j
@@ -49,11 +47,13 @@ public class UrlController {
     @GetMapping(ClipticConst.MAPPING_URL_CONTROLLER)
     public ResponseEntity<Response> getUrl(
             @RequestHeader(name = ClipticConst.AUTHORIZATION_HEADER, defaultValue = ClipticConst.NONE_AUTH_HEADER) String authHeader,
-            @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = false) String alias
+            @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = false) String alias,
+            @RequestParam(name = ClipticConst.PASSCODE_REQUEST_PARAM, required = false) String passcode
     ) {
         Response response = this.runIfAuthenticated(
                 HttpMethod.GET,
                 authHeader,
+                passcode,
                 () -> this.urlService.getUrl(alias)
         );
         return ResponseEntity.status(response.getStatusCode()).body(response);
@@ -71,6 +71,16 @@ public class UrlController {
                 () -> this.urlService.deleteUrl(alias, owner)
         );
         return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    private Response runIfAuthenticated(HttpMethod method, String authHeader, String passcodeParam, Callable<Response> callable) {
+        String actualPasscode = this.dotenv.get(ClipticConst.BEARER_TOKEN_ENV_VAR_KEY);
+        if (actualPasscode != null && (passcodeParam == null || !passcodeParam.equals(actualPasscode))) {
+            log.info("Error on {} {}: Missing or invalid passcode", method.name(), ClipticConst.MAPPING_URL_CONTROLLER);
+            return new ErrorResponse(403, "Access denied. Missing or invalid passcode");
+        }
+
+        return this.runIfAuthenticated(method, authHeader, callable);
     }
 
     private Response runIfAuthenticated(HttpMethod method, String authHeader, Callable<Response> callable) {

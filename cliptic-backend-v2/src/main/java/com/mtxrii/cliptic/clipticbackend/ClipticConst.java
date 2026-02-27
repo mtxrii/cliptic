@@ -12,6 +12,7 @@ public final class ClipticConst {
 
     public static final String ALIAS_REQUEST_PARAM = "alias";
     public static final String OWNER_REQUEST_PARAM = "owner";
+    public static final String PASSCODE_REQUEST_PARAM = "passcode";
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String BEARER_AUTH_HEADER_PREFIX = "Bearer ";
