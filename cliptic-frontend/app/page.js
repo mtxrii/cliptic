@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const API_URL = "/api/create-link";
+const EXAMPLE_ALIASES = [
+  "my-campaign", "summer-sale", "blog-post", "product-launch", "event-invite", "funny-video", "cool-article", "check-this-out", "must-see", "awesome-stuff",
+  "read-this", "share-with-friends", "limited-time", "exclusive-offer", "new-feature", "update-info", "behind-the-scenes", "sneak-peek", "top-secret",
+  "just-for-you", "hot-deal", "trending-now", "viral-content", "dont-miss-this", "best-of-the-best", "ultimate-guide", "how-to", "tips-and-tricks", "pro-tips"
+];
 
 function isValidUrl(value) {
   try {
