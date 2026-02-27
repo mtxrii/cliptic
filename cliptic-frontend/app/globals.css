@@ -11,7 +11,23 @@
   --surface-border: #e5dded;
   --action: #bfa7e6;
   --action-hover: #ad90dd;
+  --action-border: #a98cd8;
   --action-text: #ffffff;
+  --accent-strong: #8d78b4;
+  --hint: #8f839f;
+  --input-border: #ddd4e9;
+  --input-placeholder: #9a8dae;
+  --input-focus: #b59bde;
+  --focus-ring: rgba(181, 155, 222, 0.25);
+  --result-panel-border: #dfd5eb;
+  --result-panel-bg: #fcf9ff;
+  --result-label: #7d7092;
+  --link: #8a72b3;
+  --secondary-text: #6f6090;
+  --secondary-border: #d9cfeb;
+  --secondary-bg: #f7f2ff;
+  --secondary-hover-bg: #f0e8ff;
+  --app-bg: #f7f4fb;
   --error: #9a3a5f;
 }
 
@@ -24,7 +40,7 @@ body {
   min-height: 100vh;
   color: var(--text);
   font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-  background: #f7f4fb;
+  background: var(--app-bg);
 }
 
 .page-wrap {
@@ -46,7 +62,7 @@ body {
 
 .eyebrow {
   margin: 0;
-  color: #8d78b4;
+  color: var(--accent-strong);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 0.72rem;
@@ -77,13 +93,13 @@ h1 {
 }
 
 .label-hint {
-  color: #8f839f;
+  color: var(--hint);
   font-weight: 500;
 }
 
 .shortener-form input {
   height: 46px;
-  border: 1px solid #ddd4e9;
+  border: 1px solid var(--input-border);
   border-radius: 10px;
   padding: 0 13px;
   font-size: 0.95rem;
@@ -93,13 +109,13 @@ h1 {
 }
 
 .shortener-form input::placeholder {
-  color: #9a8dae;
+  color: var(--input-placeholder);
 }
 
 .shortener-form input:focus-visible {
   outline: 0;
-  border-color: #b59bde;
-  box-shadow: 0 0 0 3px rgba(181, 155, 222, 0.25);
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 button,
@@ -119,7 +135,7 @@ button,
 .success-actions button {
   color: var(--action-text);
   background: var(--action);
-  border: 1px solid #a98cd8;
+  border: 1px solid var(--action-border);
 }
 
 .shortener-form button:hover,
@@ -140,15 +156,15 @@ button,
 }
 
 .result-panel {
-  border: 1px solid #dfd5eb;
+  border: 1px solid var(--result-panel-border);
   border-radius: 10px;
   padding: 14px;
-  background: #fcf9ff;
+  background: var(--result-panel-bg);
 }
 
 .result-label {
   margin: 0;
-  color: #7d7092;
+  color: var(--result-label);
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -158,7 +174,7 @@ button,
 .result-link {
   display: inline-block;
   margin: 7px 0 13px;
-  color: #8a72b3;
+  color: var(--link);
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -182,14 +198,14 @@ button,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #6f6090;
-  border: 1px solid #d9cfeb;
-  background: #f7f2ff;
+  color: var(--secondary-text);
+  border: 1px solid var(--secondary-border);
+  background: var(--secondary-bg);
   text-decoration: none;
 }
 
 .secondary-action:hover {
-  background: #f0e8ff;
+  background: var(--secondary-hover-bg);
 }
 
 @keyframes fade-in {
