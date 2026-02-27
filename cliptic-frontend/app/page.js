@@ -125,7 +125,7 @@ export default function Home() {
 
           <label htmlFor="customAlias">
             Custom alias{" "}
-            <span className="label-hint">(leave empty to auto-generate)</span>
+            <span className="label-hint">(leave empty to auto-generate a hash)</span>
           </label>
           <input
             id="customAlias"
