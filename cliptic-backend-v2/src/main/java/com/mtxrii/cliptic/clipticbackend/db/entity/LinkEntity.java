@@ -31,7 +31,7 @@ public class LinkEntity {
     @Column(name = "is_custom_alias", nullable = false)
     private boolean isCustomAlias;
 
-    @Column(name = "original_url", nullable = false)
+    @Column(name = "original_url", columnDefinition = "TEXT", nullable = false)
     private String originalUrl;
 
     @Column(name = "created_time", nullable = false)

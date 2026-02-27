@@ -1,0 +1,2 @@
+ALTER TABLE link
+    ALTER COLUMN original_url TYPE TEXT;
