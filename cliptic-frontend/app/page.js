@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const API_URL = "/api/create-link";
@@ -26,6 +26,10 @@ export default function Home() {
     const randomSuffix = Math.random().toString(36).substring(2, 8);
     setExampleAlias(`my-link-${randomSuffix}`);
   };
+
+  useEffect(() => {
+    generateExampleAlias();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
