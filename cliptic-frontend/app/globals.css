@@ -1,18 +1,18 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --text: #16202b;
-  --muted: #5b6c80;
-  --surface: #fffef8;
-  --surface-border: #d9e3ef;
-  --action: #1162d9;
-  --action-hover: #0b4eb4;
+  --text: #111111;
+  --muted: #666666;
+  --surface: #ffffff;
+  --surface-border: #dddddd;
+  --action: #111111;
+  --action-hover: #000000;
   --action-text: #ffffff;
-  --error: #c73b42;
+  --error: #8a1f1f;
 }
 
 * {
@@ -23,69 +23,47 @@ body {
   margin: 0;
   min-height: 100vh;
   color: var(--text);
-  font-family: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
-  background:
-    radial-gradient(circle at 14% 18%, rgba(28, 187, 173, 0.18) 0%, rgba(28, 187, 173, 0) 36%),
-    radial-gradient(circle at 83% 12%, rgba(255, 189, 97, 0.28) 0%, rgba(255, 189, 97, 0) 42%),
-    linear-gradient(165deg, #f5fbff 0%, #eef3ff 52%, #fdf7eb 100%);
+  font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
+  background: #f8f8f8;
 }
 
 .page-wrap {
   min-height: 100vh;
-  padding: 30px;
+  padding: 24px;
   display: grid;
   place-items: center;
 }
 
 .form-shell {
-  width: min(700px, 100%);
+  width: min(640px, 100%);
   background: var(--surface);
   border: 1px solid var(--surface-border);
-  border-radius: 20px;
-  padding: 34px;
-  position: relative;
-  box-shadow:
-    0 26px 55px rgba(43, 83, 136, 0.18),
-    0 2px 0 rgba(255, 255, 255, 0.9) inset;
-  animation: settle 360ms ease-out;
-}
-
-.form-shell::after {
-  content: "";
-  position: absolute;
-  right: 20px;
-  top: -12px;
-  width: 120px;
-  height: 36px;
-  background: linear-gradient(135deg, #1cbbad, #5eb6ff);
-  border-radius: 999px;
-  filter: blur(20px);
-  opacity: 0.4;
-  pointer-events: none;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  animation: fade-in 220ms ease-out;
 }
 
 .eyebrow {
   margin: 0;
-  color: #0f9a8d;
+  color: #444444;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   font-size: 0.72rem;
   font-weight: 700;
 }
 
 h1 {
-  margin: 10px 0 0;
-  font-family: "Fraunces", Georgia, serif;
-  font-size: clamp(2rem, 4vw, 2.85rem);
-  line-height: 1.08;
+  margin: 8px 0 0;
+  font-size: clamp(1.9rem, 4vw, 2.4rem);
+  line-height: 1.12;
   letter-spacing: -0.01em;
 }
 
 .subtitle {
-  margin: 12px 0 24px;
+  margin: 10px 0 22px;
   color: var(--muted);
-  line-height: 1.58;
-  max-width: 58ch;
+  line-height: 1.55;
 }
 
 .shortener-form {
@@ -99,63 +77,60 @@ h1 {
 }
 
 .label-hint {
-  color: #7a8897;
+  color: #7b7b7b;
   font-weight: 500;
 }
 
 .shortener-form input {
-  height: 48px;
-  border: 1px solid #ced9e7;
-  border-radius: 12px;
-  padding: 0 14px;
+  height: 46px;
+  border: 1px solid #d8d8d8;
+  border-radius: 10px;
+  padding: 0 13px;
   font-size: 0.95rem;
   color: var(--text);
   background: #ffffff;
-  transition: border-color 140ms ease, box-shadow 140ms ease;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
 }
 
 .shortener-form input::placeholder {
-  color: #91a0b2;
+  color: #8d8d8d;
 }
 
 .shortener-form input:focus-visible {
   outline: 0;
-  border-color: #5f95e6;
-  box-shadow: 0 0 0 3px rgba(95, 149, 230, 0.2);
+  border-color: #a3a3a3;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
 }
 
 button,
 .secondary-action {
   margin-top: 8px;
   border: 0;
-  border-radius: 12px;
-  height: 48px;
+  border-radius: 10px;
+  height: 46px;
   padding: 0 16px;
   font-size: 0.94rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition: background-color 120ms ease;
 }
 
 .shortener-form button,
 .success-actions button {
   color: var(--action-text);
-  background: linear-gradient(180deg, #2e7be8 0%, var(--action) 100%);
-  border: 1px solid #2068d5;
-  box-shadow: 0 14px 24px rgba(17, 98, 217, 0.25);
+  background: var(--action);
+  border: 1px solid #111111;
 }
 
 .shortener-form button:hover,
 .success-actions button:hover {
-  background: linear-gradient(180deg, #2a73db 0%, var(--action-hover) 100%);
-  transform: translateY(-1px);
+  background: var(--action-hover);
 }
 
 .shortener-form button:disabled,
 .success-actions button:disabled {
-  opacity: 0.65;
+  opacity: 0.62;
   cursor: not-allowed;
-  transform: none;
 }
 
 .error-message {
@@ -165,38 +140,35 @@ button,
 }
 
 .result-panel {
-  border: 1px solid #d6e2f0;
-  border-radius: 14px;
-  padding: 15px;
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  padding: 14px;
+  background: #fbfbfb;
 }
 
 .result-label {
   margin: 0;
-  color: #66768a;
+  color: #6a6a6a;
   font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.08em;
   font-weight: 700;
 }
 
 .result-link {
   display: inline-block;
-  margin: 8px 0 14px;
-  color: #115fd2;
+  margin: 7px 0 13px;
+  color: #111111;
   font-weight: 700;
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
   word-break: break-all;
 }
 
-.result-link:hover {
-  text-decoration: underline;
-}
-
 .result-original {
-  margin: 8px 0 0;
+  margin: 7px 0 0;
   word-break: break-word;
-  color: #2a3a4c;
+  color: #2d2d2d;
 }
 
 .success-actions {
@@ -210,39 +182,36 @@ button,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #1e2f44;
-  border: 1px solid #cfdae8;
-  background: #f7faff;
+  color: #111111;
+  border: 1px solid #cfcfcf;
+  background: #f6f6f6;
   text-decoration: none;
 }
 
 .secondary-action:hover {
-  transform: translateY(-1px);
-  background: #edf3ff;
+  background: #efefef;
 }
 
-@keyframes settle {
+@keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @media (max-width: 640px) {
   .page-wrap {
-    padding: 16px;
+    padding: 14px;
   }
 
   .form-shell {
-    padding: 22px;
-    border-radius: 16px;
+    padding: 20px;
+    border-radius: 10px;
   }
 
   h1 {
-    font-size: clamp(1.7rem, 9vw, 2.2rem);
+    font-size: clamp(1.6rem, 8vw, 2rem);
   }
 }
