@@ -28,8 +28,8 @@ export default function Home() {
   const [exampleAlias, setExampleAlias] = useState("");
 
   const generateExampleAlias = () => {
-    const randomSuffix = Math.random().toString(36).substring(2, 8);
-    setExampleAlias(`my-link-${randomSuffix}`);
+    const randomNum = Math.floor(Math.random() * EXAMPLE_ALIASES.length);
+    setExampleAlias(EXAMPLE_ALIASES[randomNum]);
   };
 
   useEffect(() => {
@@ -117,7 +117,6 @@ export default function Home() {
           <input
             id="customAlias"
             type="text"
-            // placeholder="my-campaign"
             placeholder={exampleAlias}
             value={customAlias}
             onChange={(event) => setCustomAlias(event.target.value)}
