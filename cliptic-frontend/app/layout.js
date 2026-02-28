@@ -21,8 +21,8 @@ export default function RootLayout({ children }) {
               <Link href="/" className="top-nav__link">
                 Home
               </Link>
-              <Link href="/success" className="top-nav__link">
-                Success
+              <Link href="https://github.com/mtxrii/cliptic" className="top-nav__link">
+                GitHub
               </Link>
             </nav>
           </div>
