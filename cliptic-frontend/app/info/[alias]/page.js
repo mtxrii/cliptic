@@ -87,7 +87,7 @@ export default function LinkInfoPage({ params }) {
 
             <div className="result-item">
               <p className="result-label">Created By</p>
-              <p className="result-original">{urlInfo.createdBy}</p>
+              <p className="result-original">{urlInfo.createdBy || "Unknown"}</p>
             </div>
           </div>
         ) : (
