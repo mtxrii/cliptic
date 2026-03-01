@@ -63,11 +63,13 @@ public class UrlController {
     public ResponseEntity<Response> deleteUrl(
             @RequestHeader(name = ClipticConst.AUTHORIZATION_HEADER, defaultValue = ClipticConst.NONE_AUTH_HEADER) String authHeader,
             @RequestParam(name = ClipticConst.ALIAS_REQUEST_PARAM, required = true) String alias,
+            @RequestParam(name = ClipticConst.PASSCODE_REQUEST_PARAM, required = false) String passcode,
             @RequestParam(name = ClipticConst.OWNER_REQUEST_PARAM, defaultValue = ClipticConst.NONE_AUTH_HEADER) String owner
     ) {
         Response response = this.runIfAuthenticated(
                 HttpMethod.DELETE,
                 authHeader,
+                passcode,
                 () -> this.urlService.deleteUrl(alias, owner)
         );
         return ResponseEntity.status(response.getStatusCode()).body(response);
