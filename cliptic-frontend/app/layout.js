@@ -18,8 +18,8 @@ export default function RootLayout({ children }) {
               Cliptic
             </Link>
             <nav className="top-nav__links" aria-label="Primary">
-              <Link href="/" className="top-nav__link">
-                Home
+              <Link href="/about" className="top-nav__link">
+                About
               </Link>
               <Link href="https://github.com/mtxrii/cliptic" className="top-nav__link">
                 GitHub
