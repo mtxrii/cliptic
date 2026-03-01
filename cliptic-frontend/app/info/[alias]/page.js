@@ -3,8 +3,7 @@
 import { useState } from "react";
 
 const REDIRECT_BASE_URL = "sample.com";
-const INFO_URL = "http://localhost:8080/url";
-const HARDCODED_PASSCODE = "your-passcode";
+const INFO_URL = "/api/link-info";
 
 export default function LinkInfoPage({ params }) {
   const alias = params?.alias || "";
@@ -20,7 +19,7 @@ export default function LinkInfoPage({ params }) {
 
     try {
       const response = await fetch(
-        `${INFO_URL}?alias=${encodeURIComponent(alias)}&passcode=${encodeURIComponent(HARDCODED_PASSCODE)}`,
+        `${INFO_URL}?alias=${encodeURIComponent(alias)}`,
         { method: "GET" }
       );
 
