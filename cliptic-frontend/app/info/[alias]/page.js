@@ -63,12 +63,26 @@ export default function LinkInfoPage({ params }) {
 
             <div className="result-item">
               <p className="result-label">Original URL</p>
-              <p className="result-original">{urlInfo.originalUrl}</p>
+              <a
+                href={urlInfo.originalUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="result-link"
+              >
+                {urlInfo.originalUrl}
+              </a>
             </div>
 
             <div className="result-item">
               <p className="result-label">Redirect URL</p>
-              <p className="result-original">{urlInfo.redirectUrl}</p>
+              <a
+                href={urlInfo.redirectUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="result-link"
+              >
+                {urlInfo.redirectUrl}
+              </a>
             </div>
 
             <div className="result-item">
