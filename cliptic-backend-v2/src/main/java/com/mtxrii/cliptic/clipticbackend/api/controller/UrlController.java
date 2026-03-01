@@ -83,7 +83,7 @@ public class UrlController {
         return this.runIfAuthenticated(method, authHeader, callable);
     }
 
-    private Response runIfAuthenticated(HttpMethod method, String authHeader, Callable<Response> callable) {
+    private Response runIfAuthenticated(HttpMethod method, String authHeader, Callable<Response> serviceMethod) {
         if (authHeader == null || !authHeader.startsWith(ClipticConst.BEARER_AUTH_HEADER_PREFIX)) {
             log.info("Error on {} {}: Missing Bearer token", method.name(), ClipticConst.MAPPING_URL_CONTROLLER);
             return new ErrorResponse(401, "Unauthenticated. Missing or invalid token");
@@ -98,7 +98,7 @@ public class UrlController {
 
         try {
             log.info("Successfully authenticated {} {}", method.name(), ClipticConst.MAPPING_URL_CONTROLLER);
-            return callable.call();
+            return serviceMethod.call();
         } catch (Exception e) {
             log.error("Error occurred while processing request", e);
             return new ErrorResponse(500, "Internal server error");
