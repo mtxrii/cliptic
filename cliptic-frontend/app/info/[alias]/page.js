@@ -51,20 +51,30 @@ export default function LinkInfoPage({ params }) {
 
         {urlInfo ? (
           <div className="result-panel">
-            <p className="result-label">Alias</p>
-            <p className="result-original">{urlInfo.alias}</p>
+            <div className="result-item">
+              <p className="result-label">Alias</p>
+              <p className="result-original">{urlInfo.alias}</p>
+            </div>
 
-            <p className="result-label">Is Custom Alias</p>
-            <p className="result-original">{String(urlInfo.isCustomAlias)}</p>
+            <div className="result-item">
+              <p className="result-label">Is Custom Alias</p>
+              <p className="result-original">{String(urlInfo.isCustomAlias)}</p>
+            </div>
 
-            <p className="result-label">Original URL</p>
-            <p className="result-original">{urlInfo.originalUrl}</p>
+            <div className="result-item">
+              <p className="result-label">Original URL</p>
+              <p className="result-original">{urlInfo.originalUrl}</p>
+            </div>
 
-            <p className="result-label">Redirect URL</p>
-            <p className="result-original">{urlInfo.redirectUrl}</p>
+            <div className="result-item">
+              <p className="result-label">Redirect URL</p>
+              <p className="result-original">{urlInfo.redirectUrl}</p>
+            </div>
 
-            <p className="result-label">Created By</p>
-            <p className="result-original">{urlInfo.createdBy}</p>
+            <div className="result-item">
+              <p className="result-label">Created By</p>
+              <p className="result-original">{urlInfo.createdBy}</p>
+            </div>
           </div>
         ) : (
           <>

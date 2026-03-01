@@ -398,6 +398,10 @@ button,
   color: #4a4258;
 }
 
+.result-item + .result-item {
+  margin-top: 12px;
+}
+
 .success-actions {
   margin-top: 14px;
   display: flex;
