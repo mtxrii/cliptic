@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ClipticBackendApplication {
 
     static void main(String[] args) {
+        System.out.println("Running on url: " + ClipticConst.REDIRECT_BASE_URL);
         SpringApplication.run(ClipticBackendApplication.class, args);
     }
 
