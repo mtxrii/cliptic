@@ -423,6 +423,26 @@ button,
   background: var(--secondary-hover-bg);
 }
 
+.about-content {
+  display: grid;
+  gap: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.about-content p {
+  margin: 0;
+}
+
+.about-content ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.about-content li + li {
+  margin-top: 0.3rem;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
