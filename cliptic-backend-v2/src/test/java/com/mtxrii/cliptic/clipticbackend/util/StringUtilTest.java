@@ -11,7 +11,9 @@ import java.util.Random;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StringUtilTest {
     private static final int TEST_RUNS = 10000;
@@ -124,5 +126,17 @@ public class StringUtilTest {
             }
             assertEquals(TEST_RUNS, inputs.size());
         }
+    }
+
+    @Test
+    public void testIsLettersNumbersAndDashesOnly_true() {
+        String s = "abc123-def456";
+        assertTrue(StringUtil.isLettersNumbersAndDashesOnly(s));
+    }
+
+    @Test
+    public void testIsLettersNumbersAndDashesOnly_false() {
+        String s = "https://developer.mozilla.org/en-US/docs";
+        assertFalse(StringUtil.isLettersNumbersAndDashesOnly(s));
     }
 }
