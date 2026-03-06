@@ -59,6 +59,10 @@ public class UrlService {
             return new ErrorResponse(422, "Alias can only contain letters, numbers, and dashes");
         }
 
+        if (alias.length() > ClipticConst.CUSTOM_ALIAS_MAX_LENGTH) {
+            return new ErrorResponse(422, "Alias cannot be longer than " + ClipticConst.CUSTOM_ALIAS_MAX_LENGTH + " characters");
+        }
+
         LinkEntity linkEntity = new LinkEntity(
                 alias.toUpperCase(),
                 customAlias,
