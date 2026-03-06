@@ -19,7 +19,7 @@ export default function LinkInfoPage({ params }) {
 
     try {
       const response = await fetch(
-        `${INFO_URL}?alias=${encodeURIComponent(alias)}`,
+        `${INFO_URL}?alias=${encodeURIComponent(alias)}&passcode=${encodeURIComponent(password)}`,
         { method: "GET" }
       );
 

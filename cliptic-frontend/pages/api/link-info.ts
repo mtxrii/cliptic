@@ -56,7 +56,7 @@ export default async function LinkInfo(
   try {
     const url = new URL(BACKEND_INFO_URL);
     url.searchParams.set("alias", alias);
-    url.searchParams.set("passcode", HARDCODED_PASSCODE);
+    url.searchParams.set("passcode", String(request.query.passcode || "").trim());
 
     const backendResponse = await fetch(url.toString(), {
       method: "GET",
