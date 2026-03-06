@@ -28,4 +28,7 @@ public final class ClipticConst {
     public static final int CUSTOM_ALIAS_MAX_LENGTH = 16;
 
     public static final List<String> RESERVED_ALIASES = List.of("ABOUT", "INFO", "404", "HELP", "PRIVACY", "TERMS");
+
+    public static final int RATE_LIMIT_PER_MINUTE = 100;
+    public static final int RATE_LIMIT_WINDOW_IN_SECONDS = 60;
 }

@@ -14,7 +14,10 @@ import java.io.IOException;
 
 @Component
 public class RateLimitFilter extends OncePerRequestFilter {
-    private final GlobalRateLimiter limiter = new GlobalRateLimiter(100, 60000);
+    private final GlobalRateLimiter limiter = new GlobalRateLimiter(
+            ClipticConst.RATE_LIMIT_PER_MINUTE,
+            ClipticConst.RATE_LIMIT_WINDOW_IN_SECONDS * 1000
+    );
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
