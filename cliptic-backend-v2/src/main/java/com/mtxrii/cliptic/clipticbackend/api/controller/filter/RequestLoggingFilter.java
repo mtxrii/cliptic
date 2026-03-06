@@ -23,10 +23,17 @@ public class RequestLoggingFilter implements Filter {
     ) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
 
+        String method = req.getMethod();
+        String uri = req.getRequestURI();
         String[] queryParamsArr = req.getQueryString() != null ? req.getQueryString().split("&") : new String[0];
         String query = '[' + String.join(", ", queryParamsArr) + ']';
-        log.info("Received request at {} {} (queryParams: {})", req.getMethod(), req.getRequestURI(), query);
+
+        // @TODO: Log request body
+        log.info("Received request at {} {} (queryParams: {})", method, uri, query);
+
         chain.doFilter(request, response);
-        log.info("Request completed");
+
+        // @TODO: Log response body
+        log.info("Request completed at {} {} (queryParams: {})", method, uri, query);
     }
 }
