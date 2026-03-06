@@ -55,6 +55,10 @@ public class UrlService {
             return new ErrorResponse(409, "Alias is reserved");
         }
 
+        if (!StringUtil.isLettersNumbersAndDashesOnly(alias)) {
+            return new ErrorResponse(422, "Alias can only contain letters, numbers, and dashes");
+        }
+
         LinkEntity linkEntity = new LinkEntity(
                 alias.toUpperCase(),
                 customAlias,

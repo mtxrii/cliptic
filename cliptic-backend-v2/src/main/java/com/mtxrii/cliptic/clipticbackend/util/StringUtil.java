@@ -74,4 +74,8 @@ public final class StringUtil {
         base36 = base36.toUpperCase();
         return base36;
     }
+
+    public static boolean isLettersNumbersAndDashesOnly(String s) {
+        return s.matches("[A-Za-z0-9-]+");
+    }
 }
