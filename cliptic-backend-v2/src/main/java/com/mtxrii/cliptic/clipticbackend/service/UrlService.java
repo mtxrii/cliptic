@@ -51,6 +51,10 @@ public class UrlService {
             return new ErrorResponse(409, "Alias already exists");
         }
 
+        if (ClipticConst.RESERVED_ALIASES.contains(alias.toUpperCase())) {
+            return new ErrorResponse(409, "Alias is reserved");
+        }
+
         LinkEntity linkEntity = new LinkEntity(
                 alias.toUpperCase(),
                 customAlias,
