@@ -93,7 +93,7 @@ export default async function CreateLink(
       return response.status(backendResponse.status).json({
         type: "Error",
         code: backendResponse.status,
-        message: `Backend ${backendResponse.status}: ${backendMessage}.${redirectNote}`,
+        message: backendMessage,
       });
     }
 

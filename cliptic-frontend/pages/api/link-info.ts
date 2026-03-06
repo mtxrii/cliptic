@@ -86,7 +86,7 @@ export default async function LinkInfo(
       return response.status(backendResponse.status).json({
         type: "Error",
         code: backendResponse.status,
-        message: `Backend ${backendResponse.status}: ${backendMessage}`,
+        message: backendMessage,
       });
     }
 
