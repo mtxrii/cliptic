@@ -77,9 +77,15 @@ public class UrlController {
 
     private Response runIfAuthenticated(HttpMethod method, String authHeader, String passcodeParam, Callable<Response> callable) {
         String actualPasscode = this.dotenv.get(ClipticConst.PASSCODE_ENV_VAR_KEY);
-        if (actualPasscode != null && (passcodeParam == null || !passcodeParam.equals(actualPasscode))) {
-            log.info("Error on {} {}: Missing or invalid passcode", method.name(), ClipticConst.MAPPING_URL_CONTROLLER);
-            return new ErrorResponse(403, "Access denied. Missing or invalid passcode");
+        if (actualPasscode != null) {
+            if (passcodeParam == null || passcodeParam.isEmpty()) {
+                log.info("Error on {} {}: Missing passcode", method.name(), ClipticConst.MAPPING_URL_CONTROLLER);
+                return new ErrorResponse(403, "Access denied. Please provide a passcode");
+            }
+            if (!passcodeParam.equals(actualPasscode)) {
+                log.info("Error on {} {}: Invalid passcode: {}", method.name(), ClipticConst.MAPPING_URL_CONTROLLER, passcodeParam);
+                return new ErrorResponse(403, "Access denied. Invalid passcode");
+            }
         }
 
         return this.runIfAuthenticated(method, authHeader, callable);
