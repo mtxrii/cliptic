@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -26,8 +25,7 @@ public class RequestLoggingFilter implements Filter {
 
         String[] queryParamsArr = req.getQueryString() != null ? req.getQueryString().split("&") : new String[0];
         String query = '[' + String.join(", ", queryParamsArr) + ']';
-        String body = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        log.info("Received request at {} {} query: {} body: {}", req.getMethod(), req.getRequestURI(), query, body);
+        log.info("Received request at {} {} (queryParams: {})", req.getMethod(), req.getRequestURI(), query);
         chain.doFilter(request, response);
         log.info("Request completed");
     }
