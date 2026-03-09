@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.concurrent.Callable;
 
@@ -25,10 +26,12 @@ import java.util.concurrent.Callable;
 public class UrlController {
     private final UrlService urlService;
     private final Dotenv dotenv;
+    private final ObjectMapper objectMapper;
 
     public UrlController(UrlService urlService) {
         this.urlService = urlService;
         this.dotenv = Dotenv.load();
+        this.objectMapper = new ObjectMapper();
     }
 
     @PostMapping(ClipticConst.MAPPING_URL_CONTROLLER)
@@ -41,6 +44,7 @@ public class UrlController {
                 authHeader,
                 () -> this.urlService.postUrl(requestBody)
         );
+        log.info("Request body: {}", objectMapper.writeValueAsString(requestBody));
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
