@@ -28,6 +28,12 @@ public final class ClipticConst {
     public static final int CUSTOM_ALIAS_MAX_LENGTH = 16;
 
     public static final List<String> RESERVED_ALIASES = List.of("ABOUT", "INFO", "404", "HELP", "PRIVACY", "TERMS");
+    public static final List<String> SENSITIVE_ALIASES = List.of(
+            "ADMIN", "ADMINISTRATOR", "SUPPORT", "STAFF", "MOD", "MODERATOR", "OFFICIAL", "SYSTEM", "SECURITY", "ROOT",
+            "OWNER", "HELP", "CONTACT", "API", "WWW", "MAIL", "EMAIL", "LOGIN", "SIGNIN", "SIGN-IN", "SIGNUP", "SIGN-UP",
+            "CLIPTIC", "CLIPTICTO", "CLIP", "NULL", "UNDEFINED", "TEST", "DEV", "PROD", "STAGE", "HEALTH", "STATUS",
+            "ERROR", "ADMIN", "DOCS", "TERMS", "PRIVACY", "ASSETS", "STATIC", "FAVICON", "ROBOTS", "SITEMAP", "LEGAL"
+    );
 
     public static final int RATE_LIMIT_PER_MINUTE = 100;
     public static final int RATE_LIMIT_WINDOW_IN_SECONDS = 60;
