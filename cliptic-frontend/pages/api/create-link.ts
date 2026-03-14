@@ -35,7 +35,7 @@ export default async function CreateLink(
       type: "Error",
       code: 500,
       message:
-        "Missing auth config. Set SHORTENER_BACKEND_TOKEN or SHORTENER_BACKEND_AUTH_HEADER.",
+        "Missing auth config. Set SHORTENER_BACKEND_TOKEN env var.",
     });
   }
 
