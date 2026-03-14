@@ -13,16 +13,20 @@ import com.mtxrii.cliptic.clipticbackend.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
 @Service
 public class UrlService {
     private final LinkRepository linkRepository;
+    private final Map<String, String> linksTriedWithBlockedAliasesMap;
 
     public UrlService(LinkRepository linkRepository) {
         this.linkRepository = linkRepository;
+        this.linksTriedWithBlockedAliasesMap = new HashMap<>();
     }
 
     public Response postUrl(PostUrlRequest requestBody) {
@@ -52,7 +56,13 @@ public class UrlService {
         }
 
         if (ClipticConst.RESERVED_ALIASES.contains(alias.toUpperCase())) {
+            this.linksTriedWithBlockedAliasesMap.put(originalUrl, alias.toUpperCase());
             return new ErrorResponse(409, "Alias is reserved");
+        }
+
+        if (ClipticConst.SENSITIVE_ALIASES.contains(alias.toUpperCase())) {
+            this.linksTriedWithBlockedAliasesMap.put(originalUrl, alias.toUpperCase());
+            return new ErrorResponse(409, "Alias requires extra approval. Please contact support before using this one");
         }
 
         if (!StringUtil.isLettersNumbersAndDashesOnly(alias)) {
