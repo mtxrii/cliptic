@@ -2,14 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const BACKEND_INFO_URL = process.env.SHORTENER_BACKEND_INFO_URL || "http://localhost:8080/url";
 const BACKEND_AUTH_TOKEN = process.env.SHORTENER_BACKEND_TOKEN;
-const BACKEND_AUTH_HEADER = process.env.SHORTENER_BACKEND_AUTH_HEADER;
 const HARDCODED_PASSCODE = "your-passcode";
 
 function buildAuthorizationHeader() {
-  if (BACKEND_AUTH_HEADER && BACKEND_AUTH_HEADER.trim()) {
-    return BACKEND_AUTH_HEADER.trim();
-  }
-
   const token = BACKEND_AUTH_TOKEN?.trim();
   if (!token) {
     return "";
