@@ -41,4 +41,8 @@ public class RedirectService {
     public static void addToCache(String alias, String redirectUrl) {
         REDIRECT_CACHE.put(alias, redirectUrl);
     }
+
+    public static int getCacheSize() {
+        return REDIRECT_CACHE.size();
+    }
 }
