@@ -37,4 +37,6 @@ public final class ClipticConst {
 
     public static final int RATE_LIMIT_PER_MINUTE = 100;
     public static final int RATE_LIMIT_WINDOW_IN_SECONDS = 60;
+
+    public static final int MAX_CACHE_SIZE = 1_660_000; // 10,000 elements at 166 bytes each for 1.66 megabytes max
 }

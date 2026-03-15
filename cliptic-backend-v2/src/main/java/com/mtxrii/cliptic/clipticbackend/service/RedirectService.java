@@ -1,15 +1,21 @@
 package com.mtxrii.cliptic.clipticbackend.service;
 
+import com.mtxrii.cliptic.clipticbackend.ClipticConst;
 import com.mtxrii.cliptic.clipticbackend.db.LinkRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class RedirectService {
-    private static final Map<String, String> REDIRECT_CACHE = new HashMap<>();
+    private static final Map<String, String> REDIRECT_CACHE = new LinkedHashMap<>(100, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
+            return size() > ClipticConst.MAX_CACHE_SIZE;
+        }
+    };
 
     private final LinkRepository linkRepository;
 
@@ -28,7 +34,7 @@ public class RedirectService {
         }
 
         String redirectUrl = this.linkRepository.findByAlias(alias).get().getOriginalUrl();
-        REDIRECT_CACHE.put(alias, redirectUrl);
+        addToCache(alias, redirectUrl);
         return Optional.of(redirectUrl);
     }
 
