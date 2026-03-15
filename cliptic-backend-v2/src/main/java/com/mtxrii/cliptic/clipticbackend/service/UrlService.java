@@ -84,6 +84,7 @@ public class UrlService {
 
         String aliasDetail = customAlias ? " (custom alias)" : ClipticConst.EMPTY_STRING;
         log.info("Created new link: {}{} -> {}", alias, aliasDetail, originalUrl);
+        log.info("Cache size: {}", RedirectService.getCacheSize());
 
         return new PostUrlResponse(200, ClipticConst.REDIRECT_BASE_URL + alias);
     }
